@@ -11,7 +11,7 @@ interface Todo {
   text: string;
 }
 
-const TodoList: React.FC = () => {
+export default function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [input, setInput] = useState('');
 
@@ -36,6 +36,4 @@ const TodoList: React.FC = () => {
       ))}
     </div>
   );
-};
-
-export default TodoList;
+}

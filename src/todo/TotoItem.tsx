@@ -11,12 +11,10 @@ interface TodoItemProps {
   };
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+export default function TodoItem({ todo }: TodoItemProps) {
   return (
     <Card>
       <CardContent>{todo.text}</CardContent>
     </Card>
   );
-};
-
-export default TodoItem;
+}
