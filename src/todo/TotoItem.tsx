@@ -31,6 +31,32 @@ export default function TodoItem({
 }: TodoItemProps) {
   const [editText, setEditText] = useState(todo.text);
 
+  const canEditingText = todo.isEditing ? (
+    <TextField
+      value={editText}
+      onChange={(e) => setEditText(e.target.value)}
+    />
+  ) : (
+    <Typography sx={{ textDecoration: todo.isCompleted ? 'line-through' : 'none' }}>
+      {todo.text}
+    </Typography>
+  );
+
+  const withEditingIcon = todo.isEditing ? (
+    <>
+      <IconButton onClick={() => saveEdit(todo.id, editText)}>
+        <SaveIcon />
+      </IconButton>
+      <IconButton onClick={() => cancelEditing(todo.id)}>
+        <CancelIcon />
+      </IconButton>
+    </>
+  ) : (
+    <IconButton onClick={() => startEditing(todo.id)}>
+      <EditIcon />
+    </IconButton>
+  );
+
   return (
     <Card
       sx={{
@@ -44,32 +70,8 @@ export default function TodoItem({
         checked={todo.isCompleted}
         onChange={() => toggleComplete(todo.id)}
       />
-      {todo.isEditing ? (
-        <TextField
-          value={editText}
-          onChange={(e) => setEditText(e.target.value)}
-        />
-      ) : (
-        <Typography sx={{ textDecoration: todo.isCompleted ? 'line-through' : 'none' }}>
-          {todo.text}
-        </Typography>
-      )}
-      <div>
-        {todo.isEditing ? (
-          <>
-            <IconButton onClick={() => saveEdit(todo.id, editText)}>
-              <SaveIcon />
-            </IconButton>
-            <IconButton onClick={() => cancelEditing(todo.id)}>
-              <CancelIcon />
-            </IconButton>
-          </>
-        ) : (
-          <IconButton onClick={() => startEditing(todo.id)}>
-            <EditIcon />
-          </IconButton>
-        )}
-      </div>
+      {canEditingText}
+      <div>{withEditingIcon}</div>
     </Card>
   );
 }
