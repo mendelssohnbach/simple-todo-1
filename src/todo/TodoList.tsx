@@ -20,6 +20,13 @@ export default function TodoList() {
     setInput('');
   };
 
+  const todoChildren = todos.map((todo) => (
+    <TodoItem
+      key={todo.id}
+      todo={todo}
+    />
+  ));
+
   return (
     <div>
       <TextField
@@ -28,12 +35,7 @@ export default function TodoList() {
         onChange={(e) => setInput(e.target.value)}
       />
       <Button onClick={addTodo}>追加</Button>
-      {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-        />
-      ))}
+      {todoChildren}
     </div>
   );
 }
